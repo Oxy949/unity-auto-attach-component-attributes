@@ -181,7 +181,7 @@ namespace Nrjwolf.Tools.Editor.AttachAttributes
     }
     
     /// GetPrefab
-    [CustomPropertyDrawer(typeof(GetPrefab))]
+    [CustomPropertyDrawer(typeof(GetPrefabAttribute))]
     public class GetPrefabAttributeEditor : AttachAttributePropertyDrawer
     {
         public override void UpdateProperty(SerializedProperty property, GameObject go, Type type)
