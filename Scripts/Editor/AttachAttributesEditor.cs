@@ -126,7 +126,7 @@ namespace Nrjwolf.Tools.Editor.AttachAttributes
             else
             {
                 var child = go.transform.Find(labelAttribute.ChildName);
-                if (child != null)
+                if (child)
                 {
                     property.objectReferenceValue = child.GetComponent(type);
                 }
@@ -175,8 +175,26 @@ namespace Nrjwolf.Tools.Editor.AttachAttributes
     {
         public override void UpdateProperty(SerializedProperty property, GameObject go, Type type)
         {
-            if (go.transform.parent != null)
+            if (go.transform.parent)
                 property.objectReferenceValue = go.transform.parent.gameObject.GetComponent(type);
+        }
+    }
+    
+    /// GetPrefab
+    [CustomPropertyDrawer(typeof(GetPrefab))]
+    public class GetPrefabAttributeEditor : AttachAttributePropertyDrawer
+    {
+        public override void UpdateProperty(SerializedProperty property, GameObject go, Type type)
+        {
+            GetPrefabAttribute labelAttribute = (GetPrefabAttribute)attribute;
+            if (labelAttribute.Path != null)
+            {
+                var prefab = UnityEditor.AssetDatabase.LoadAssetAtPath(labelAttribute.Path, typeof(GameObject));
+                if (!prefab)
+                    return;
+                
+                property.objectReferenceValue = prefab;
+            }
         }
     }
     #endregion

@@ -26,5 +26,16 @@ namespace Nrjwolf.Tools.AttachAttributes
     [AttributeUsage(System.AttributeTargets.Field)] public class FindObjectOfTypeAttribute : AttachPropertyAttribute { }
     [AttributeUsage(System.AttributeTargets.Field)] public class GetComponentInParent : AttachPropertyAttribute { }
 
+    [AttributeUsage(System.AttributeTargets.Field)]
+    public class GetPrefabAttribute : AttachPropertyAttribute
+    {
+        public string Path;
+
+        public GetPrefabAttribute(string path)
+        {
+            Path = path;
+        }
+    }
+
     public class AttachPropertyAttribute : PropertyAttribute { }
 }
