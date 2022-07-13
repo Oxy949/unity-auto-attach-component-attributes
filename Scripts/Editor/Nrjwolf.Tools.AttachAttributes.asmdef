@@ -1,7 +1,7 @@
 {
-    "name": "Nrjwolf.Tools.Editor.AttachAttributes",
+    "name": "Agred.Nrjwolf.Tools.Editor.AttachAttributes",
     "references": [
-        "Nrjwolf.Tools.AttachAttributes"
+        "Agred.Nrjwolf.Tools.AttachAttributes"
     ],
     "includePlatforms": [
         "Editor"
