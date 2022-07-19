@@ -146,7 +146,7 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
             var labelAttribute = (GetComponentsInChildrenAttribute) attribute;
             if (labelAttribute.PropertyName == null)
             {
-                Debug.LogError("PropertyName parameter in GetComponentsInChildrenAttribute is required!")
+                Debug.LogError("PropertyName parameter in GetComponentsInChildrenAttribute is required!");
                 return;
             }
 
@@ -256,7 +256,7 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
             var labelAttribute = (GetComponentsInParentAttribute) attribute;
             if (labelAttribute.PropertyName == null)
             {
-                Debug.LogError("PropertyName parameter in GetComponentsInParentAttribute is required!")
+                Debug.LogError("PropertyName parameter in GetComponentsInParentAttribute is required!");
                 return;
             }
 
