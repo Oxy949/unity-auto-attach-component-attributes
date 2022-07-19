@@ -138,7 +138,7 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
     [CustomPropertyDrawer(typeof(GetComponentsInChildrenAttribute))]
     public class GetComponentsInChildrenAttributeEditor : AttachAttributePropertyDrawer
     {
-        public void UpdateProperty(SerializedProperty property, GameObject go, Type type)
+        public override void UpdateProperty(SerializedProperty property, GameObject go, Type type)
         {
             var labelAttribute = (GetComponentsInChildrenAttribute) attribute;
             if (!property.isArray)
@@ -167,6 +167,8 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
                 property.InsertArrayElementAtIndex(i);
                 property.GetArrayElementAtIndex(i).objectReferenceValue = componentsInChildren[i];
             }
+            
+            property.serializedObject.ApplyModifiedProperties();
         }
     }
 
@@ -239,6 +241,8 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
                 property.InsertArrayElementAtIndex(i);
                 property.GetArrayElementAtIndex(i).objectReferenceValue = componentsInParent[i];
             }
+            
+            property.serializedObject.ApplyModifiedProperties();
         }
     }
     
