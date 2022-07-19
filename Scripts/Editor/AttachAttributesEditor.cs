@@ -169,7 +169,6 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
             if (property.arraySize != componentsInChildren.Length)
                 property.ClearArray();
 
-            property.arraySize = componentsInChildren.Length;
             for (var i = 0; i < componentsInChildren.Length; i++)
             {
                 var component = componentsInChildren[i];
@@ -177,7 +176,8 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
                 var componentAlreadyInArray = false;
                 for (var j = 0; j < property.arraySize; j++)
                 {
-                    if (property.GetArrayElementAtIndex(j).objectReferenceValue == component)
+                    var arrayElement = property.GetArrayElementAtIndex(j);
+                    if (arrayElement != null && arrayElement.objectReferenceValue == component)
                     {
                         componentAlreadyInArray = true;
                         break;
@@ -260,19 +260,19 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
 
         private static void UpdateArrayProperty(SerializedProperty property, GameObject go, Type type)
         {
-            var componentsInParent = go.GetComponentsInParent(type);
-            if (property.arraySize != componentsInParent.Length)
+            var componentsInChildren = go.GetComponentsInChildren(type);
+            if (property.arraySize != componentsInChildren.Length)
                 property.ClearArray();
 
-            property.arraySize = componentsInParent.Length;
-            for (var i = 0; i < componentsInParent.Length; i++)
+            for (var i = 0; i < componentsInChildren.Length; i++)
             {
-                var component = componentsInParent[i];
+                var component = componentsInChildren[i];
 
                 var componentAlreadyInArray = false;
                 for (var j = 0; j < property.arraySize; j++)
                 {
-                    if (property.GetArrayElementAtIndex(j).objectReferenceValue == component)
+                    var arrayElement = property.GetArrayElementAtIndex(j);
+                    if (arrayElement != null && arrayElement.objectReferenceValue == component)
                     {
                         componentAlreadyInArray = true;
                         break;
@@ -286,7 +286,7 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
                 property.GetArrayElementAtIndex(i).objectReferenceValue = component;
             }
         }
-
+        
         /// GetPrefab
         [CustomPropertyDrawer(typeof(GetPrefabAttribute))]
         public class GetPrefabAttributeEditor : AttachAttributePropertyDrawer
