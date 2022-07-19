@@ -8,9 +8,6 @@ namespace Dev.Agred.Tools.AttachAttributes
     [AttributeUsage(System.AttributeTargets.Field)]
     public class GetComponentInChildrenAttribute : AttachPropertyAttribute
     {
-        public bool IncludeInactive { get; private set; }
-        public string ChildName;
-
         public GetComponentInChildrenAttribute(bool includeInactive = false)
         {
             IncludeInactive = includeInactive;
@@ -20,29 +17,47 @@ namespace Dev.Agred.Tools.AttachAttributes
         {
             ChildName = childName;
         }
+
+        public bool IncludeInactive { get; set; }
+        
+        public string ChildName { get; set; }
     }
 
     [AttributeUsage(System.AttributeTargets.Field)]
     public class GetComponentsInChildrenAttribute : AttachPropertyAttribute
     {
-        public bool IncludeInactive { get; private set; }
-        public string ChildName;
-
         public GetComponentsInChildrenAttribute(bool includeInactive = false)
         {
             IncludeInactive = includeInactive;
         }
 
-        public GetComponentsInChildrenAttribute(string childName)
+        public GetComponentsInChildrenAttribute(string propertyName, string childName)
         {
+            PropertyName = propertyName;
             ChildName = childName;
         }
+
+        public bool IncludeInactive { get; set; }
+        
+		public string ChildName { get; set; }
+
+        public string PropertyName { get; set; }
     }
 
     [AttributeUsage(System.AttributeTargets.Field)] public class AddComponentAttribute : AttachPropertyAttribute { }
     [AttributeUsage(System.AttributeTargets.Field)] public class FindObjectOfTypeAttribute : AttachPropertyAttribute { }
-    [AttributeUsage(System.AttributeTargets.Field)] public class GetComponentInParent : AttachPropertyAttribute { }
-    [AttributeUsage(System.AttributeTargets.Field)] public class GetComponentsInParent : AttachPropertyAttribute { }
+    [AttributeUsage(System.AttributeTargets.Field)] public class GetComponentInParentAttribute : AttachPropertyAttribute { }
+
+    [AttributeUsage(System.AttributeTargets.Field)]
+    public class GetComponentsInParentAttribute : AttachPropertyAttribute
+    {
+        public GetComponentsInParentAttribute(string propertyName)
+        {
+            PropertyName = propertyName;
+        }
+        
+        public string PropertyName { get; set; }
+    }
 
     [AttributeUsage(System.AttributeTargets.Field)]
     public class GetPrefabAttribute : AttachPropertyAttribute
