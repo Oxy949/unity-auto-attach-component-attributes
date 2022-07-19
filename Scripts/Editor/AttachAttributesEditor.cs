@@ -145,7 +145,10 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
         {
             var labelAttribute = (GetComponentsInChildrenAttribute) attribute;
             if (labelAttribute.PropertyName == null)
+            {
+                Debug.LogError("PropertyName parameter in GetComponentsInChildrenAttribute is required!")
                 return;
+            }
 
             var arrayProperty = property.serializedObject.FindProperty(labelAttribute.PropertyName);
             if (labelAttribute.ChildName == null)
@@ -252,7 +255,10 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
 
             var labelAttribute = (GetComponentsInParentAttribute) attribute;
             if (labelAttribute.PropertyName == null)
+            {
+                Debug.LogError("PropertyName parameter in GetComponentsInParentAttribute is required!")
                 return;
+            }
 
             var arrayProperty = property.serializedObject.FindProperty(labelAttribute.PropertyName);
             UpdateArrayProperty(arrayProperty, go, type);
