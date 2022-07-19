@@ -138,20 +138,34 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
     [CustomPropertyDrawer(typeof(GetComponentsInChildrenAttribute))]
     public class GetComponentsInChildrenAttributeEditor : AttachAttributePropertyDrawer
     {
-        public override void UpdateProperty(SerializedProperty property, GameObject go, Type type)
+        public void UpdateProperty(SerializedProperty property, GameObject go, Type type)
         {
-            GetComponentsInChildrenAttribute labelAttribute = (GetComponentsInChildrenAttribute)attribute;
+            var labelAttribute = (GetComponentsInChildrenAttribute) attribute;
+            if (!property.isArray)
+                return;
+
             if (labelAttribute.ChildName == null)
             {
-                property.objectReferenceValue = go.GetComponentsInChildren(type, labelAttribute.IncludeInactive);
+                UpdateArrayProperty(property, go, type, labelAttribute);
             }
             else
             {
                 var child = go.transform.Find(labelAttribute.ChildName);
-                if (child)
-                {
-                    property.objectReferenceValue = child.GetComponents(type);
-                }
+                if (!child)
+                    return;
+
+                UpdateArrayProperty(property, child.gameObject, type, labelAttribute);
+            }
+        }
+
+        private static void UpdateArrayProperty(SerializedProperty property, GameObject go, Type type,
+            GetComponentsInChildrenAttribute labelAttribute)
+        {
+            var componentsInChildren = go.GetComponentsInChildren(type, labelAttribute.IncludeInactive);
+            for (var i = 0; i < componentsInChildren.Length; i++)
+            {
+                property.InsertArrayElementAtIndex(i);
+                property.GetArrayElementAtIndex(i).objectReferenceValue = componentsInChildren[i];
             }
         }
     }
@@ -200,6 +214,31 @@ namespace Dev.Agred.Tools.Editor.AttachAttributes
         {
             if (go.transform.parent)
                 property.objectReferenceValue = go.transform.parent.gameObject.GetComponent(type);
+        }
+    }
+    
+    /// GetComponentsInParent
+    [CustomPropertyDrawer(typeof(GetComponentsInParent))]
+    public class GetComponentsInParentAttributeEditor : AttachAttributePropertyDrawer
+    {
+        public override void UpdateProperty(SerializedProperty property, GameObject go, Type type)
+        {
+            if (!go.transform.parent)
+                return;
+            if (!property.isArray)
+                return;
+            
+            UpdateArrayProperty(property, go, type);
+        }
+        
+        private static void UpdateArrayProperty(SerializedProperty property, GameObject go, Type type)
+        {
+            var componentsInParent = go.GetComponentsInParent(type);
+            for (var i = 0; i < componentsInParent.Length; i++)
+            {
+                property.InsertArrayElementAtIndex(i);
+                property.GetArrayElementAtIndex(i).objectReferenceValue = componentsInParent[i];
+            }
         }
     }
     

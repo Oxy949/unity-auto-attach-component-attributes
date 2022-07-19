@@ -42,6 +42,7 @@ namespace Dev.Agred.Tools.AttachAttributes
     [AttributeUsage(System.AttributeTargets.Field)] public class AddComponentAttribute : AttachPropertyAttribute { }
     [AttributeUsage(System.AttributeTargets.Field)] public class FindObjectOfTypeAttribute : AttachPropertyAttribute { }
     [AttributeUsage(System.AttributeTargets.Field)] public class GetComponentInParent : AttachPropertyAttribute { }
+    [AttributeUsage(System.AttributeTargets.Field)] public class GetComponentsInParent : AttachPropertyAttribute { }
 
     [AttributeUsage(System.AttributeTargets.Field)]
     public class GetPrefabAttribute : AttachPropertyAttribute
