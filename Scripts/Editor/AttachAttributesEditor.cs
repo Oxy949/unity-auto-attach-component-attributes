@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Nrjwolf.Tools.AttachAttributes;
+using Dev.Agred.Tools.AttachAttributes;
 using UnityEditor;
 using UnityEngine;
 
-namespace Nrjwolf.Tools.Editor.AttachAttributes
+namespace Dev.Agred.Tools.Editor.AttachAttributes
 {
     public static class AttachAttributesUtils
     {
@@ -133,6 +133,29 @@ namespace Nrjwolf.Tools.Editor.AttachAttributes
             }
         }
     }
+    
+    /// GetComponentsInChildren
+    [CustomPropertyDrawer(typeof(GetComponentsInChildrenAttribute))]
+    public class GetComponentsInChildrenAttributeEditor : AttachAttributePropertyDrawer
+    {
+        public override void UpdateProperty(SerializedProperty property, GameObject go, Type type)
+        {
+            GetComponentsInChildrenAttribute labelAttribute = (GetComponentsInChildrenAttribute)attribute;
+            if (labelAttribute.ChildName == null)
+            {
+                property.objectReferenceValue = go.GetComponentsInChildren(type, labelAttribute.IncludeInactive);
+            }
+            else
+            {
+                var child = go.transform.Find(labelAttribute.ChildName);
+                if (child)
+                {
+                    property.objectReferenceValue = child.GetComponents(type);
+                }
+            }
+        }
+    }
+
 
     /// AddComponent
     [CustomPropertyDrawer(typeof(AddComponentAttribute))]

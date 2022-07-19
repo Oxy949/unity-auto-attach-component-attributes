@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Nrjwolf.Tools.AttachAttributes
+namespace Dev.Agred.Tools.AttachAttributes
 {
     [AttributeUsage(System.AttributeTargets.Field)] public class GetComponentAttribute : AttachPropertyAttribute { }
 
@@ -17,6 +17,23 @@ namespace Nrjwolf.Tools.AttachAttributes
         }
 
         public GetComponentInChildrenAttribute(string childName)
+        {
+            ChildName = childName;
+        }
+    }
+
+    [AttributeUsage(System.AttributeTargets.Field)]
+    public class GetComponentsInChildrenAttribute : AttachPropertyAttribute
+    {
+        public bool IncludeInactive { get; private set; }
+        public string ChildName;
+
+        public GetComponentsInChildrenAttribute(bool includeInactive = false)
+        {
+            IncludeInactive = includeInactive;
+        }
+
+        public GetComponentsInChildrenAttribute(string childName)
         {
             ChildName = childName;
         }
