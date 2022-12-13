@@ -7,7 +7,7 @@
 Add this as a package to your project by adding the below as an entry to the dependencies in the `/Packages/manifest.json` file:
 
 ```json
-"dev.agred.attachattributes": "https://github.com/agredek/unity-auto-attach-component-attributes.git"
+"dev.agred.attachattributes": "https://github.com/oxy949/unity-auto-attach-component-attributes.git"
 ```
 For more information on adding git repositories as a package see the [Git support on Package Manager](https://docs.unity3d.com/Manual/upm-git.html) in the Unity Documentation.
 
